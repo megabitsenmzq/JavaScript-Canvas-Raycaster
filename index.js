@@ -1,11 +1,18 @@
 const map = [
-  [1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 1, 0, 1, 1],
-  [1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
 const SCREEN_WIDTH = window.innerWidth;
@@ -15,7 +22,7 @@ const TICK = 30;
 
 const CELL_SIZE = 32;
 
-const FOV = toRadians(60);
+const FOV = toRadians(80);
 
 const COLORS = {
   floor: "#d52b1e", // "#ff6361"
@@ -29,7 +36,8 @@ const player = {
   x: CELL_SIZE * 1.5,
   y: CELL_SIZE * 2,
   angle: toRadians(0),
-  speed: 0,
+  speedX: 0,
+  speedY: 0,
 };
 
 const canvas = document.createElement("canvas");
@@ -200,8 +208,8 @@ function getRays() {
 }
 
 function movePlayer() {
-  player.x += Math.cos(player.angle) * player.speed;
-  player.y += Math.sin(player.angle) * player.speed;
+  player.x += (Math.cos(player.angle) * player.speedY - Math.sin(player.angle) * player.speedX);
+  player.y += (Math.sin(player.angle) * player.speedY + Math.cos(player.angle) * player.speedX);
 }
 
 function renderScene(rays) {
@@ -232,22 +240,65 @@ function gameLoop() {
 
 setInterval(gameLoop, TICK);
 
+
+
+// Controls
+
+// Save keyboard state to keep moving consistently.
+const keyState = {
+  left: false,
+  right: false,
+  up: false,
+  down: false
+};
+
 canvas.addEventListener("click", () => {
   canvas.requestPointerLock();
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowUp") {
-    player.speed = 2;
+  if (e.key === "w") {
+    keyState.up = true;
+    player.speedY = 2;
   }
-  if (e.key === "ArrowDown") {
-    player.speed = -2;
+  if (e.key === "s") {
+    keyState.down = true;
+    player.speedY = -2;
+  }
+  if (e.key === "a") {
+    keyState.left = true;
+    player.speedX = -2;
+  }
+  if (e.key === "d") {
+    keyState.right = true;
+    player.speedX = 2;
   }
 });
 
 document.addEventListener("keyup", (e) => {
-  if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-    player.speed = 0;
+  if (e.key === "w") {
+    keyState.up = false;
+    if (!keyState.down) {
+      player.speedY = 0;
+    }
+  }
+  if (e.key === "s") {
+    keyState.down = false;
+    if (!keyState.up) {
+      player.speedY = 0;
+    }
+  }
+  if (e.key === "a") {
+    keyState.left = false;
+    if (!keyState.right) {
+      player.speedX = 0;
+    }
+  }
+  if (e.key === "d") {
+    keyState.right = false;
+    if (!keyState.left) {
+      player.speedX = 0;
+    }
   }
 });
 
