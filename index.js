@@ -254,43 +254,10 @@ function gameLoop() {
 
 setInterval(gameLoop, TICK);
 
-// OSD
-function drawOSD() {
-  if (pointerLockState) { return; }
-  context.fillStyle = "white";
-  context.fillRect(
-    SCREEN_WIDTH / 2 - 200, 
-    SCREEN_HEIGHT / 2 - 40,
-    400,
-    80,
-  )
-
-  context.fillStyle = "black";
-  context.font = "bold 25px Times Roman";
-  const tipText = "Click to Start";
-  const textSize = context.measureText(tipText);
-  context.fillText(
-    tipText, 
-    SCREEN_WIDTH / 2 - textSize.width / 2, 
-    SCREEN_HEIGHT / 2
-  );
-
-  context.fillStyle = "black";
-  context.font = "10px Times Roman";
-  const tipText2 = "Move mouse to turn. W / S / A / D to Move.";
-  const textSize2 = context.measureText(tipText2);
-  context.fillText(
-    tipText2, 
-    SCREEN_WIDTH / 2 - textSize2.width / 2, 
-    SCREEN_HEIGHT / 2 + 20
-  );
-}
-
 // Player
-
 const player = {
   x: CELL_SIZE * 1.5,
-  y: CELL_SIZE * 2,
+  y: CELL_SIZE * 1.5,
   angle: toRadians(0),
   speedX: 0,
   speedY: 0,
@@ -322,7 +289,6 @@ function movePlayer() {
     player.y = targetY
   }
 }
-
 
 // Controls
 
