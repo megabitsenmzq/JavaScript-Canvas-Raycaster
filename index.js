@@ -207,11 +207,6 @@ function getRays() {
   });
 }
 
-function movePlayer() {
-  player.x += (Math.cos(player.angle) * player.speedY - Math.sin(player.angle) * player.speedX);
-  player.y += (Math.sin(player.angle) * player.speedY + Math.cos(player.angle) * player.speedX);
-}
-
 function renderScene(rays) {
   rays.forEach((ray, i) => {
     const distance = fixFishEye(ray.distance, ray.angle, player.angle);
@@ -240,6 +235,34 @@ function gameLoop() {
 
 setInterval(gameLoop, TICK);
 
+// Player
+
+function checkWallCollision(targetX, targetY) {
+  var isCollision = false;
+  map.forEach((row, y) => {
+    row.forEach((cell, x) => {
+      if (cell) {
+        const leftCollision = targetX >= x * CELL_SIZE;
+        const rightCollision = targetX <= (x + 1) * CELL_SIZE;
+        const topCollision = targetY >= y * CELL_SIZE;
+        const bottomCollision = targetY <= (y + 1) * CELL_SIZE;
+        if (leftCollision && rightCollision && topCollision && bottomCollision) {
+          isCollision = true;
+        }
+      }
+    });
+  });
+  return isCollision;
+}
+
+function movePlayer() {
+  const targetX = player.x + (Math.cos(player.angle) * player.speedY - Math.sin(player.angle) * player.speedX);
+  const targetY = player.y + (Math.sin(player.angle) * player.speedY + Math.cos(player.angle) * player.speedX);
+  if (!checkWallCollision(targetX, targetY)) {
+    player.x = targetX;
+    player.y = targetY
+  }
+}
 
 
 // Controls
