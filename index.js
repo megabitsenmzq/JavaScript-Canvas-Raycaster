@@ -275,11 +275,18 @@ const keyState = {
   down: false
 };
 
+var pointerLockState = false;
+
 canvas.addEventListener("click", () => {
   canvas.requestPointerLock();
 });
 
+document.addEventListener("pointerlockchange", () => {
+  pointerLockState = document.pointerLockElement != null;
+});
+
 document.addEventListener("keydown", (e) => {
+  if (!pointerLockState) { return; }
   if (e.key === "w") {
     keyState.up = true;
     player.speedY = 2;
@@ -326,5 +333,6 @@ document.addEventListener("keyup", (e) => {
 });
 
 document.addEventListener("mousemove", function (event) {
+  if (!pointerLockState) { return; }
   player.angle += toRadians(event.movementX);
 });
