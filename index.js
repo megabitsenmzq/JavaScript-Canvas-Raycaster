@@ -1,3 +1,5 @@
+// Game Settings
+
 const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
@@ -15,9 +17,6 @@ const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-const SCREEN_WIDTH = window.innerWidth;
-const SCREEN_HEIGHT = window.innerHeight;
-
 const TICK = 30;
 
 const CELL_SIZE = 32;
@@ -30,34 +29,44 @@ const COLORS = {
   wall: "#013aa6", // "#58508d"
   wallDark: "#012975", // "#003f5c"
   rays: "#ffa600",
+
+  mapWall: "gray",
+  mapPlayer: "green",
+  mapPlayerDirection: "white",
 };
 
-const player = {
-  x: CELL_SIZE * 1.5,
-  y: CELL_SIZE * 2,
-  angle: toRadians(0),
-  speedX: 0,
-  speedY: 0,
-};
 
-const canvas = document.createElement("canvas");
-canvas.setAttribute("width", SCREEN_WIDTH);
-canvas.setAttribute("height", SCREEN_HEIGHT);
+const SCREEN_WIDTH = window.innerWidth;
+const SCREEN_HEIGHT = window.innerHeight;
+
+// Create Canvas
+
+function createHiPPICanvas(width, height) {
+  const ratio = window.devicePixelRatio;
+  const canvas = document.createElement("canvas");
+
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+  canvas.getContext("2d").scale(ratio, ratio);
+
+  return canvas;
+}
+
+const canvas = createHiPPICanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 document.body.appendChild(canvas);
 
 const context = canvas.getContext("2d");
 
-function clearScreen() {
-  context.fillStyle = "red";
-  context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-}
-
 function renderMinimap(posX = 0, posY = 0, scale, rays) {
   const cellSize = scale * CELL_SIZE;
+
+  // Draw Cells
   map.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell) {
-        context.fillStyle = "grey";
+        context.fillStyle = COLORS.mapWall;
         context.fillRect(
           posX + x * cellSize,
           posY + y * cellSize,
@@ -67,15 +76,23 @@ function renderMinimap(posX = 0, posY = 0, scale, rays) {
       }
     });
   });
-  context.fillStyle = "blue";
-  context.fillRect(
-    posX + player.x * scale - 10 / 2,
-    posY + player.y * scale - 10 / 2,
-    10,
-    10
-  );
 
-  context.strokeStyle = "blue";
+  // Draw Player
+  context.fillStyle = COLORS.mapPlayer;
+  context.beginPath();
+  context.arc(
+    posX + player.x * scale,
+    posY + player.y * scale,
+    5,
+    0,
+    2 * Math.PI,
+    false
+  );
+  context.closePath();
+  context.fill();
+
+  // Draw Player Direction
+  context.strokeStyle = COLORS.mapPlayerDirection;
   context.beginPath();
   context.moveTo(player.x * scale, player.y * scale);
   context.lineTo(
@@ -85,6 +102,7 @@ function renderMinimap(posX = 0, posY = 0, scale, rays) {
   context.closePath();
   context.stroke();
 
+  // Draw Rays
   context.strokeStyle = COLORS.rays;
   rays.forEach((ray) => {
     context.beginPath();
@@ -226,16 +244,57 @@ function renderScene(rays) {
 }
 
 function gameLoop() {
-  clearScreen();
+  context.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
   movePlayer();
   const rays = getRays();
   renderScene(rays);
-  renderMinimap(0, 0, 0.75, rays);
+  renderMinimap(0, 0, 0.5, rays);
+  drawOSD();
 }
 
 setInterval(gameLoop, TICK);
 
+// OSD
+function drawOSD() {
+  if (pointerLockState) { return; }
+  context.fillStyle = "white";
+  context.fillRect(
+    SCREEN_WIDTH / 2 - 200, 
+    SCREEN_HEIGHT / 2 - 40,
+    400,
+    80,
+  )
+
+  context.fillStyle = "black";
+  context.font = "bold 25px Times Roman";
+  const tipText = "Click to Start";
+  const textSize = context.measureText(tipText);
+  context.fillText(
+    tipText, 
+    SCREEN_WIDTH / 2 - textSize.width / 2, 
+    SCREEN_HEIGHT / 2
+  );
+
+  context.fillStyle = "black";
+  context.font = "10px Times Roman";
+  const tipText2 = "Move mouse to turn. W / S / A / D to Move.";
+  const textSize2 = context.measureText(tipText2);
+  context.fillText(
+    tipText2, 
+    SCREEN_WIDTH / 2 - textSize2.width / 2, 
+    SCREEN_HEIGHT / 2 + 20
+  );
+}
+
 // Player
+
+const player = {
+  x: CELL_SIZE * 1.5,
+  y: CELL_SIZE * 2,
+  angle: toRadians(0),
+  speedX: 0,
+  speedY: 0,
+};
 
 function checkWallCollision(targetX, targetY) {
   var isCollision = false;
