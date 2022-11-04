@@ -34,16 +34,16 @@ const CELL_SIZE = 25;
 const FOV = toRadians(60);
 
 const COLORS = {
-  floor: "#d52b1e", // "#ff6361"
-  ceiling: "#ffffff", // "#012975",
-  wall: "#013aa6", // "#58508d"
-  wallAlt: "#013ab6", // "#58508d"
-  wallDark: "#012975", // "#003f5c"
-  wallDarkAlt: "#012985", // "#003f5c"
-  goal: "green",
+  floor: "#E4DAC5",
+  ceiling: "#EAEAEA",
+  wall: "#9BCABF",
+  wallAlt: "#474E68",
+  wallDark: "#5CAFAF",
+  wallDarkAlt: "#50577A",
+  goal: "#D36560",
   rays: "#ffa600",
 
-  mapWall: "gray",
+  mapWall: "black",
   mapPlayer: "green",
   mapPlayerDirection: "white",
 };
@@ -75,6 +75,7 @@ function renderMinimap(posX = 0, posY = 0, scale, rays) {
   const cellSize = scale * CELL_SIZE;
 
   // Draw Cells
+  context.globalAlpha = 0.5;
   map.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell) {
@@ -126,6 +127,7 @@ function renderMinimap(posX = 0, posY = 0, scale, rays) {
     context.closePath();
     context.stroke();
   });
+  context.globalAlpha = 1;
 }
 
 function toRadians(deg) {
@@ -245,9 +247,9 @@ function renderScene(rays) {
     var alter = false;
     const distance = fixFishEye(ray.distance, ray.angle, player.angle);
     const wallHeight = ((CELL_SIZE * 5) / distance) * 277;
-    const stripeHeight = wallHeight / 10;
+    const stripeHeight = wallHeight / 3;
 
-    for (j = 0; j < 10; j++) {
+    for (j = 0; j < 3; j++) {
       if (ray.vertical) {
         context.fillStyle = alter ? COLORS.wallDark : COLORS.wallDarkAlt;  
       } else {
