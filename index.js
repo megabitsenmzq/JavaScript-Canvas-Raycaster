@@ -31,7 +31,7 @@ const TICK = 30;
 
 const CELL_SIZE = 25;
 
-const FOV = toRadians(60);
+const FOV = toRadians(80);
 
 const COLORS = {
   floor: "#E4DAC5",
@@ -246,7 +246,7 @@ function renderScene(rays) {
     // Wall
     var alter = false;
     const distance = fixFishEye(ray.distance, ray.angle, player.angle);
-    const wallHeight = ((CELL_SIZE * 5) / distance) * 277;
+    const wallHeight = ((CELL_SIZE * 5) / distance) * 170;
     const stripeHeight = wallHeight / 3;
 
     for (j = 0; j < 3; j++) {
@@ -316,6 +316,7 @@ function checkWallCollision(targetX, targetY) {
             document.exitPointerLock();
             resetPlayer();
             resetKeyState();
+            isVictor = true;
           }
         }
       }
@@ -351,6 +352,7 @@ function resetKeyState() {
 }
 
 var pointerLockState = false;
+var isVictor = false;
 
 canvas.addEventListener("click", () => {
   canvas.requestPointerLock();
@@ -358,8 +360,9 @@ canvas.addEventListener("click", () => {
 
 document.addEventListener("pointerlockchange", () => {
   pointerLockState = document.pointerLockElement != null;
-  if (pointerLockState) {
+  if (pointerLockState && isVictor) {
     resetTimer();
+    isVictor = false;
   }
   timerRunning = pointerLockState;
 });
