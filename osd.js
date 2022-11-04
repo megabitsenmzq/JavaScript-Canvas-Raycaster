@@ -61,7 +61,7 @@ function drawControlTip() {
 
   context.fillStyle = "black";
   context.font = "10px Times Roman";
-  const tipText2 = "Move mouse to turn. W / S / A / D to Move.";
+  const tipText2 = "Move mouse to turn. W / S / A / D to move.";
   const textSize2 = context.measureText(tipText2);
   context.fillText(
     tipText2, 

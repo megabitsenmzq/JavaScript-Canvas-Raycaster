@@ -131,10 +131,7 @@ function outOfMapBounds(x, y) {
 function getVCollision(angle) {
   const right = Math.abs(Math.floor((angle - Math.PI / 2) / Math.PI) % 2);
 
-  const firstX = right
-    ? Math.floor(player.x / CELL_SIZE) * CELL_SIZE + CELL_SIZE
-    : Math.floor(player.x / CELL_SIZE) * CELL_SIZE;
-
+  const firstX = Math.floor(player.x / CELL_SIZE) * CELL_SIZE + (right ? CELL_SIZE : 0);
   const firstY = player.y + (firstX - player.x) * Math.tan(angle);
 
   const xA = right ? CELL_SIZE : -CELL_SIZE;
@@ -144,9 +141,7 @@ function getVCollision(angle) {
   let nextX = firstX;
   let nextY = firstY;
   while (!wall) {
-    const cellX = right
-      ? Math.floor(nextX / CELL_SIZE)
-      : Math.floor(nextX / CELL_SIZE) - 1;
+    const cellX = Math.floor(nextX / CELL_SIZE) - (right ? 0 : 1);
     const cellY = Math.floor(nextY / CELL_SIZE);
 
     if (outOfMapBounds(cellX, cellY)) {
@@ -168,9 +163,7 @@ function getVCollision(angle) {
 
 function getHCollision(angle) {
   const up = Math.abs(Math.floor(angle / Math.PI) % 2);
-  const firstY = up
-    ? Math.floor(player.y / CELL_SIZE) * CELL_SIZE
-    : Math.floor(player.y / CELL_SIZE) * CELL_SIZE + CELL_SIZE;
+  const firstY = Math.floor(player.y / CELL_SIZE) * CELL_SIZE + (up ? 0 : CELL_SIZE);
   const firstX = player.x + (firstY - player.y) / Math.tan(angle);
 
   const yA = up ? -CELL_SIZE : CELL_SIZE;
@@ -181,9 +174,7 @@ function getHCollision(angle) {
   let nextY = firstY;
   while (!wall) {
     const cellX = Math.floor(nextX / CELL_SIZE);
-    const cellY = up
-      ? Math.floor(nextY / CELL_SIZE) - 1
-      : Math.floor(nextY / CELL_SIZE);
+    const cellY = Math.floor(nextY / CELL_SIZE) - (up ? 1 : 0);
 
     if (outOfMapBounds(cellX, cellY)) {
       break;
