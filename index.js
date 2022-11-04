@@ -38,6 +38,7 @@ const COLORS = {
   ceiling: "#ffffff", // "#012975",
   wall: "#013aa6", // "#58508d"
   wallDark: "#012975", // "#003f5c"
+  goal: "green",
   rays: "#ffa600",
 
   mapWall: "gray",
@@ -242,7 +243,7 @@ function renderScene(rays) {
     const wallHeight = ((CELL_SIZE * 5) / distance) * 277;
     context.fillStyle = ray.vertical ? COLORS.wallDark : COLORS.wall;
     if (ray.isGoal) {
-      context.fillStyle = "green";
+      context.fillStyle = COLORS.goal;
     }
     context.fillRect(i, SCREEN_HEIGHT / 2 - wallHeight / 2, 1, wallHeight);
     context.fillStyle = COLORS.floor;
