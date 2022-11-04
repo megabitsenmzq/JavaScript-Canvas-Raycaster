@@ -29,7 +29,7 @@ const GOAL_Y = 19;
 
 const TICK = 30;
 
-const CELL_SIZE = 40;
+const CELL_SIZE = 25;
 
 const FOV = toRadians(60);
 
@@ -37,7 +37,9 @@ const COLORS = {
   floor: "#d52b1e", // "#ff6361"
   ceiling: "#ffffff", // "#012975",
   wall: "#013aa6", // "#58508d"
+  wallAlt: "#013ab6", // "#58508d"
   wallDark: "#012975", // "#003f5c"
+  wallDarkAlt: "#012985", // "#003f5c"
   goal: "green",
   rays: "#ffa600",
 
@@ -239,13 +241,25 @@ function getRays() {
 
 function renderScene(rays) {
   rays.forEach((ray, i) => {
+    // Wall
+    var alter = false;
     const distance = fixFishEye(ray.distance, ray.angle, player.angle);
     const wallHeight = ((CELL_SIZE * 5) / distance) * 277;
-    context.fillStyle = ray.vertical ? COLORS.wallDark : COLORS.wall;
-    if (ray.isGoal) {
-      context.fillStyle = COLORS.goal;
+    const stripeHeight = wallHeight / 10;
+
+    for (j = 0; j < 10; j++) {
+      if (ray.vertical) {
+        context.fillStyle = alter ? COLORS.wallDark : COLORS.wallDarkAlt;  
+      } else {
+        context.fillStyle = alter ? COLORS.wall : COLORS.wallAlt;
+      }
+      alter = !alter;
+      if (ray.isGoal) {
+        context.fillStyle = COLORS.goal;
+      }
+      context.fillRect(i, SCREEN_HEIGHT / 2 - wallHeight / 2 + j * stripeHeight, 1, Math.ceil(stripeHeight));
     }
-    context.fillRect(i, SCREEN_HEIGHT / 2 - wallHeight / 2, 1, wallHeight);
+
     context.fillStyle = COLORS.floor;
     context.fillRect(
       i,
