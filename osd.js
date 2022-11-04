@@ -9,8 +9,11 @@ function updateTimer() {
   }
 }
 
+function resetTimer() {
+  timeEstimate = 0;
+}
+
 function drawTimer() {
-  if (!pointerLockState) { return; }
   // Make String
   const millisecondsPart = timeEstimate % 1000 / 100;
   const seconds = Math.floor(timeEstimate / 1000);
@@ -23,9 +26,9 @@ function drawTimer() {
 
   context.fillStyle = "white";
   context.fillRect(
-    SCREEN_WIDTH - 120,
+    SCREEN_WIDTH - 100,
     SCREEN_HEIGHT - 40,
-    240,
+    200,
     80,
   )
 
@@ -34,7 +37,7 @@ function drawTimer() {
   const textSize = context.measureText(timeString);
   context.fillText(
     timeString, 
-    SCREEN_WIDTH - 120 + 10, 
+    SCREEN_WIDTH - 100 + 8, 
     SCREEN_HEIGHT - 10
   );
 }

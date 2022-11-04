@@ -1,27 +1,37 @@
 // Game Settings
 
 const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+  [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+  [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+  [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+  [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+  [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+  [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
+
+const GOAL_X = 20;
+const GOAL_Y = 19;
 
 const TICK = 30;
 
-const CELL_SIZE = 32;
+const CELL_SIZE = 40;
 
-const FOV = toRadians(80);
+const FOV = toRadians(60);
 
 const COLORS = {
   floor: "#d52b1e", // "#ff6361"
@@ -40,7 +50,6 @@ const SCREEN_WIDTH = window.innerWidth;
 const SCREEN_HEIGHT = window.innerHeight;
 
 // Create Canvas
-
 function createHiPPICanvas(width, height) {
   const ratio = window.devicePixelRatio;
   const canvas = document.createElement("canvas");
@@ -140,6 +149,7 @@ function getVCollision(angle) {
   let wall;
   let nextX = firstX;
   let nextY = firstY;
+  var isGoal = false;
   while (!wall) {
     const cellX = Math.floor(nextX / CELL_SIZE) - (right ? 0 : 1);
     const cellY = Math.floor(nextY / CELL_SIZE);
@@ -152,12 +162,16 @@ function getVCollision(angle) {
       nextX += xA;
       nextY += yA;
     } else {
+      if (cellX == GOAL_X && cellY == GOAL_Y) {
+        isGoal = true
+      }
     }
   }
   return {
     angle,
     distance: distance(player.x, player.y, nextX, nextY),
     vertical: true,
+    isGoal: isGoal,
   };
 }
 
@@ -172,6 +186,7 @@ function getHCollision(angle) {
   let wall;
   let nextX = firstX;
   let nextY = firstY;
+  var isGoal = false;
   while (!wall) {
     const cellX = Math.floor(nextX / CELL_SIZE);
     const cellY = Math.floor(nextY / CELL_SIZE) - (up ? 1 : 0);
@@ -184,12 +199,17 @@ function getHCollision(angle) {
     if (!wall) {
       nextX += xA;
       nextY += yA;
+    } else {
+      if (cellX == GOAL_X && cellY == GOAL_Y) {
+        isGoal = true
+      }
     }
   }
   return {
     angle,
     distance: distance(player.x, player.y, nextX, nextY),
     vertical: false,
+    isGoal: isGoal,
   };
 }
 
@@ -221,6 +241,9 @@ function renderScene(rays) {
     const distance = fixFishEye(ray.distance, ray.angle, player.angle);
     const wallHeight = ((CELL_SIZE * 5) / distance) * 277;
     context.fillStyle = ray.vertical ? COLORS.wallDark : COLORS.wall;
+    if (ray.isGoal) {
+      context.fillStyle = "green";
+    }
     context.fillRect(i, SCREEN_HEIGHT / 2 - wallHeight / 2, 1, wallHeight);
     context.fillStyle = COLORS.floor;
     context.fillRect(
@@ -254,6 +277,13 @@ const player = {
   speedY: 0,
 };
 
+function resetPlayer() {
+  player.x = CELL_SIZE * 1.5;
+  player.y = CELL_SIZE * 1.5;
+  player.speedX = 0;
+  player.speedY = 0;
+}
+
 function checkWallCollision(targetX, targetY) {
   var isCollision = false;
   map.forEach((row, y) => {
@@ -265,6 +295,11 @@ function checkWallCollision(targetX, targetY) {
         const bottomCollision = targetY <= (y + 1) * CELL_SIZE;
         if (leftCollision && rightCollision && topCollision && bottomCollision) {
           isCollision = true;
+          if (x == GOAL_X && y == GOAL_Y) {
+            document.exitPointerLock();
+            resetPlayer();
+            resetKeyState();
+          }
         }
       }
     });
@@ -291,6 +326,13 @@ const keyState = {
   down: false
 };
 
+function resetKeyState() {
+  keyState.left = false;
+  keyState.right = false;
+  keyState.up = false;
+  keyState.down = false;
+}
+
 var pointerLockState = false;
 
 canvas.addEventListener("click", () => {
@@ -299,6 +341,10 @@ canvas.addEventListener("click", () => {
 
 document.addEventListener("pointerlockchange", () => {
   pointerLockState = document.pointerLockElement != null;
+  if (pointerLockState) {
+    resetTimer();
+  }
+  timerRunning = pointerLockState;
 });
 
 document.addEventListener("keydown", (e) => {
